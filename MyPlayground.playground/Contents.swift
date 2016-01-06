@@ -9,7 +9,64 @@ var str = "Hello, playground"
 
 //page 6
 var myVariable = 42
+myVariable = 50
+//let myConstant =42 //Error: Prefix = is reserved. Solution: Need not to join the = with value.
 
+let myConstant = 42
+
+//Page 7
+let implicitInteger = 70
+let implicitDouble = 70.0
+let explicitDouble: Double = 70
+let explicitFloat: Float = 70
+
+let label = "This width is "
+let width = 94
+let widthLabel = label + String(width)
+
+//Page 8
+
+let apples = 3
+let oranges = 5
+let appleSummary = "I have \(apples) apples."
+let fruitSummary = "I have \(apples + oranges) pieces of fruits."
+
+
+//Page 9
+//Array
+var shoppingList = ["catfish","water","tulips","blue paint"]
+shoppingList[1] = "bottle of water"
+
+var occupations = [
+    "Malcolm" : "Captaion",
+    "Kaylee" : "Mechanic",
+]
+
+occupations["Jayne"] = "Public Relation"
+occupations["Jayne"] = "Public Relations"
+
+
+
+let emptyArray = [String]()
+let emptyDictionary = [String: Float]()
+
+shoppingList = []
+occupations = [:]
+
+//Page 10
+let individualScores = [75,43,103,87,12]
+var teamScore = 0
+for score in individualScores {
+    if score > 50 {
+        teamScore += 3
+    }
+    else {
+        teamScore += 1
+    }
+}
+print(teamScore)
+
+//Page 11
 var optionalString: String? = "Hello"
 
 print(optionalString)
