@@ -151,4 +151,111 @@ for i in 0..<4 {
 }
 print(firstForLoop)
 
+//Page 18
+func greet (name: String , day: String) -> String
+{
+    return "Hello \(name), today  is \(day)"
+}
+greet("Vel", day: "Tuesday")
 
+
+
+func calculateStatistics(scores: [Int])-> (min: Int, max: Int, sum: Int) {
+    var min = scores[0]
+    var max = scores[0]
+    var sum = 0
+
+    for score in scores
+    {
+//Page 19
+        if score > max {
+            max = score
+        }
+        else if score < min {
+            min = score
+        }
+        sum += score
+    }
+    return(min,max,sum)
+}
+
+let statistics = calculateStatistics([5,3,100,3,9])
+print(statistics.sum)
+print(statistics.2)
+
+//Page 20
+func sumOf(numbers: Int...) -> Int {
+    var sum = 0
+    for number in numbers
+    {
+        sum += number
+    }
+    return sum
+}
+
+sumOf()
+sumOf(42, 597, 12)
+
+
+//Experiment
+
+func averageOf(numbers: Int...) -> Double {
+    var sum = 0
+    for number in numbers
+    {
+        sum += number
+    }
+    let result: Double = Double(sum) / Double(numbers.count)
+
+    return result
+}
+
+averageOf()
+averageOf(42, 597, 12)
+
+
+
+
+//Page 21
+func returnFifteen() -> Int {
+    var y = 10
+    func add() {
+        y += 5
+    }
+    add()
+    return y
+}
+
+returnFifteen()
+
+
+
+
+func makeIncrementer() -> ((Int)->Int){
+    
+    func addOne(number: Int) -> Int {
+        return 1 + number
+    }
+    return addOne
+}
+
+var increment = makeIncrementer()
+increment(7)
+
+
+//Page 22
+func hasAnyMatch(list: [Int], condition: (Int) -> Bool)->Bool {
+    for item in list {
+        if condition(item) {
+            return true
+        }
+    }
+    return false
+}
+
+func lessThanTen(number: Int) -> Bool {
+    return number < 10
+}
+
+var numbers = [20,19,7,12]
+hasAnyMatch(numbers, condition: lessThanTen)
