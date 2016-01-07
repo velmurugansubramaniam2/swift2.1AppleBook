@@ -494,3 +494,108 @@ print(triangleAndSquare.triangle.sideLength)
 
 let optionalSquare: Square? = Square(sideLenght: 2.5, name: "optional Square")
 let sideLength = optionalSquare?.sideLength
+
+
+
+
+//Enumerations and structures
+enum Rank: Int {
+    case Ace = 1
+//Page 34
+    case Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten
+    case Jack,Queen, King
+    func simpleDescription() -> String {
+        switch self {
+        case .Ace:
+                return "ace"
+        case .Jack:
+                return "jack"
+        case .Queen:
+                return "queen"
+        case .King:
+                return "king"
+        default:
+            return String(self.rawValue)
+        }
+    }
+}
+
+let ace = Rank.Ace
+let aceRawValue = ace.rawValue
+
+//Page: 35
+
+if let convertedRank = Rank(rawValue: 3){
+    let threeDescription = convertedRank.simpleDescription()
+}
+
+//Page: 36
+
+enum Suit {
+    case Spades, Hearts, Diamonds, Clubs
+    
+    func simpleDescription() -> String {
+        switch self {
+        case .Spades:
+            return "spades"
+        case .Hearts:
+            return "hearts"
+        case .Diamonds:
+            return "diamonds"
+        case .Clubs:
+            return "clubs"
+        }
+    }
+// Page : 37
+    func color() -> String {
+        switch self {
+        case .Spades:
+            return "black"
+        case .Clubs:
+            return "black"
+        case .Hearts:
+            return "red"
+        case .Diamonds:
+            return "red"
+        }
+    }
+}
+
+let hearts = Suit.Hearts
+let heartsDescription = hearts.simpleDescription()
+
+
+//Page: 38
+struct Card {
+    var rank: Rank
+    var suit: Suit
+    func simpleDescription() -> String {
+        return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+    }
+}
+
+let threeOfSpades = Card(rank: .Three, suit: .Spades)
+let threeOfSpadesDescription = threeOfSpades.simpleDescription()
+
+
+
+
+//PAge 40
+enum ServerResponse {
+    case Result(String,String)
+    case Error(String)
+    case ThirdCase()
+}
+
+let success = ServerResponse.Result("6.00 am", "8.00 pm")
+let failure = ServerResponse.Error("Out of cheese")
+
+switch success {
+case let .Result(sunrise,sunset):
+    print("Sunrise is at \(sunrise) and sunset is at \(sunset)")
+case let .Error(error):
+    print("Failure.. \(error)")
+case .ThirdCase :
+    print("third case.")
+}
+
