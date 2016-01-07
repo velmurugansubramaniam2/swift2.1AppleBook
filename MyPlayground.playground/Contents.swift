@@ -259,3 +259,238 @@ func lessThanTen(number: Int) -> Bool {
 
 var numbers = [20,19,7,12]
 hasAnyMatch(numbers, condition: lessThanTen)
+
+
+//Page 23
+numbers.map { (number: Int) -> Int in
+    let result = 3 * number
+    return result
+}
+
+//Experiment
+numbers.map { (number: Int) -> Int in
+    if number % 2 != 0 {
+        return 0
+    }
+    let result = 3 * number
+    return result
+}
+
+
+//Page 24
+let mappedNumbers = numbers.map({number in 3 * number})
+
+print(mappedNumbers)
+
+
+let sortedNumbers = numbers.sort { (value1: Int, value2: Int) -> Bool in
+    return value1 > value2
+}
+print(sortedNumbers)
+let sortedNumbers1 = numbers.sort { $0>$1}
+
+print(sortedNumbers1)
+
+
+
+
+
+
+
+
+//Page 25
+class Shape {
+    var numberOfSides = 0
+    func simpleDescription() -> String {
+        return "A shape with \(numberOfSides) sides"
+    }
+}
+
+var shape = Shape()
+shape.numberOfSides = 7
+var shapeDescription = shape.simpleDescription()
+
+
+class RectShape {
+    var numberOfSides = 0
+    let someConstant = "test"
+    
+    func simpleDescription() -> String {
+        return "A shape with \(numberOfSides) sides"
+    }
+    func test () {
+        printSomeConstant(someConstant)
+        print(someConstant)
+    }
+    func printSomeConstant(var args1:String) {
+        args1 = "723t78t"
+        print(args1)
+    }
+    
+}
+var rectShape = RectShape()
+//rectShape.someConstant = "Try To Change"
+
+//let rectShape1 = RectShape()
+//rectShape1.numberOfSides = 10 
+
+//How Let Allow to change the values?
+//http://stackoverflow.com/questions/24002999/how-exactly-does-the-let-keyword-work-in-swift
+
+
+RectShape.init().simpleDescription()
+//RectShape.init().printSomeConstant("try")
+
+
+
+
+
+
+//Page 26
+class NamedShape {
+    var numberOfSides: Int = 0
+    var name: String
+   
+    init(name: String) {
+        self.name = name //Comment out this line will get an -> error: return from initializer without initializing all stored properties 
+//        Solution : Intialize all variable at declare time or initialize at init() .var name: String = ""
+
+    }
+    deinit {
+        print("\(name) is being deInitialized.");
+    }
+    func simpleDescription() -> String {
+        return "A shape with \(numberOfSides) sides."
+    }
+}
+
+//Page 27
+class Square : NamedShape {
+    var sideLength : Double
+    
+    init(sideLenght: Double, name: String) {
+        self.sideLength = sideLenght
+        super.init(name: name) //comment Out this line: Error As follow
+//        error: use of 'self' in property access 'numberOfSides' before super.init initializes self        numberOfSides = 4
+        
+        numberOfSides = 4
+        
+//Page 28
+    }
+    
+    func area () -> Double {
+        return sideLength * sideLength
+    }
+    
+    override func simpleDescription() -> String {
+        return "A square with sides of length \(sideLength)."
+    }
+
+}
+
+let test = Square(sideLenght: 5.2, name: "my test Square")
+test.area()
+test.simpleDescription()
+
+
+
+
+
+
+
+//Page 29
+
+class Circle: NamedShape {
+    
+    var radius: Double = 0.0
+    init(radius: Double, name: String) {
+        self.radius = radius
+        super.init(name: name)
+    }
+    
+    override func simpleDescription() -> String {
+        return "A radius of the circle is \(radius)."
+
+    }
+    func area () -> Double {
+        return (22/7) * self.radius * self.radius
+    }
+    
+}
+
+let circle = Circle(radius: 12, name: "Test Circle.")
+circle.area()
+circle.simpleDescription()
+
+
+
+
+class EquilateralTriangle: NamedShape {
+    var sideLength: Double = 0.0
+    
+    init(sideLength: Double, name: String) {
+        self.sideLength = sideLength
+        super.init(name: name)
+        numberOfSides = 3
+    }
+    
+    var perimeter: Double {
+        get {
+            return 3.0 * sideLength
+            
+//Page 30
+        }
+        set  {
+            sideLength = newValue / 3.0
+        }
+    }
+    
+    override func simpleDescription() -> String {
+        return "An equilateral triangle with sides of length \(sideLength)."
+    }
+}
+
+
+
+
+var triangle = EquilateralTriangle(sideLength: 3.1, name: "a triangle")
+print(triangle.perimeter)
+triangle.perimeter = 9.9
+print(triangle.sideLength)
+
+
+
+
+//Page 31
+
+class TriangleAndSquare {
+    var triangle: EquilateralTriangle {
+        willSet {
+            square.sideLength = newValue.sideLength
+        }
+//Page 32
+    }
+    var square: Square {
+        willSet {
+            triangle.sideLength = newValue.sideLength
+        }
+    }
+    init(size: Double, name: String){
+        square = Square(sideLenght: size, name: name)
+        triangle = EquilateralTriangle(sideLength: size,name: name)
+    }
+    
+}
+var triangleAndSquare = TriangleAndSquare(size: 10, name: "another test shape")
+
+print(triangleAndSquare.square.sideLength)
+print(triangleAndSquare.triangle.sideLength)
+
+triangleAndSquare.square = Square(sideLenght: 50, name: "large square")
+
+
+//Page 33 
+print(triangleAndSquare.triangle.sideLength)
+
+let optionalSquare: Square? = Square(sideLenght: 2.5, name: "optional Square")
+let sideLength = optionalSquare?.sideLength
